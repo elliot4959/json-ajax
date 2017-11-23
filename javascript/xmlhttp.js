@@ -38,12 +38,12 @@ https://en.wikipedia.org/w/api.php?action=query&format=json&generator=search&pro
 */
 
   function gatherData(data) {
-    // console.log(data);
+    console.log(data);
     // initialise some variables
     let theData = "";
     let langLinks = "";
     let img = "<img>";
-    const languages = ["en", "de", "zh", "fr", "es", "ja", "ar", "ko", "el"];
+    const languages = ["en", "de", "zh", "fr", "es", "ja", "ar", "ko", "be"];
     let k;
     let key;
     // loop through the result pages by pageid
@@ -54,13 +54,14 @@ https://en.wikipedia.org/w/api.php?action=query&format=json&generator=search&pro
       }
       let title = `<strong><a href="${tmp.fullurl}">${tmp.title}</a></strong>`;
       let extract = `<span class="txt">${tmp.extract}</span>`;
+      let length = `<span class="len">${tmp.length} words</span>`;
       let langLinks = "";
       for (k in tmp.langlinks) {
         if (languages.includes(tmp.langlinks[k].lang)) {
           langLinks += `<a href=${tmp.langlinks[k].url}>${tmp.langlinks[k].lang}</a> `;
         }
       }
-      theData += `<li>${img} ${title} ${extract} <span class="langs">${langLinks}</span></li>`;
+      theData += `<li>${img} ${title} ${extract} ${length}<span class="langs">${langLinks}</span></li>`;
     }
     demoJSON.innerHTML = theData;
   }
